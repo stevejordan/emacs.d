@@ -4,8 +4,7 @@
 ;;;   themes, bindings etc
 
 ;;; code:
-
-(load-theme 'tango-dark)
+(setq custom-enabled-themes '(tango-dark))
 (global-linum-mode)
 (menu-bar-mode -1)
 
