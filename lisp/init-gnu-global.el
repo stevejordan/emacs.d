@@ -30,7 +30,7 @@
 
 (defun gtags-update-hook()
   "Update GTAGS file incrementally upon saving a file"
-  (when (and nil ggtags-mode (or php-mode java-mode))
+  (when (and (bound-and-true-p ggtags-mode) (or (featurep 'php-mode) (featurep 'java-mode)))
     (when (gtags-root-dir)
       (gtags-update-current-file))))
 
@@ -40,5 +40,7 @@
 
 (add-hook 'php-mode-hook 'steve-gnu-global-setup)
 (add-hook 'java-mode-hook 'steve-gnu-global-setup)
+
+(add-hook 'after-save-hook #'gtags-update-hook)
 
 (provide 'init-gnu-global)

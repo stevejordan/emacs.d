@@ -37,12 +37,15 @@
 
 (require-package 'visual-regexp)
 (require-package 'ack)
+(require-package 'realgud)
 
 (defun steve-set-line-length ()
-  "Find the line length setting from python flake8 config."
+  "Set line-length marker per major mode."
   (let ((steve-line-length 80))
     (when (equal major-mode 'python-mode)
       (setq steve-line-length 100))
+    (when (equal major-mode 'php-mode)
+      (setq steve-line-length 120))
     (set (make-local-variable 'whitespace-line-column) steve-line-length)))
 
 (defun steve-python-setup ()
@@ -53,25 +56,94 @@
   )
 (add-hook 'python-mode-hook 'steve-python-setup)
 
-(defun steve-psr2-phpcs ()
+(require-package 'php-auto-yasnippets)
+
+(defun parent-directory (dir)
+  (unless (equal "/" dir)
+    (file-name-directory (directory-file-name dir))))
+
+(defun find-file-in-heirarchy (current-dir fname)
+  "Search for a file named FNAME upwards through the directory
+hierarchy, starting from CURRENT-DIR"
+  (let ((file (concat current-dir fname))
+        (parent (parent-directory (expand-file-name current-dir))))
+    (if (file-exists-p file)
+        file
+      (when parent
+        (find-file-in-heirarchy parent fname)))))
+
+(defun find-composer ()
+  (find-file-in-heirarchy
+   (file-name-directory (buffer-file-name (current-buffer)))
+   "composer.json"))
+
+(defun php-autoload-location ()
+  (let ((composer-json-location (find-composer)))
+    (when composer-json-location
+      (concat (file-name-directory composer-json-location) "vendor/autoload.php"))))
+
+(defun steve-phpcs ()
   "Set PHP codesniffer standard to PSR2."
   ;; doesn't matter that this applies to all buffers
-  (setq flycheck-phpcs-standard "PSR2"))
+  (setq flycheck-phpcs-standard nil)
+  (setq flycheck-php-phpcs-executable "~/bin/phpcs"))
+
+(defun steve-php-yasnippet-init ()
+  "Initialise yasnippet in php buffers."
+  (yas-minor-mode)
+  ;;(yas-reload-all)
+  (setq ac-source-yasnippet nil)
+  (define-key php-mode-map (kbd "C-c C-y") 'yas/create-php-snippet)
+  (setq php-auto-yasnippet-required-files (list (php-autoload-location)))
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key yas-minor-mode-map (kbd "C-c TAB") 'yas-expand)
+  (define-key yas-minor-mode-map (kbd "C-c <tab>") 'yas-expand))
 
 (defun steve-php-mode-setup ()
   "Functions to run on php-mode-hook."
-  (steve-psr2-phpcs))
+  (steve-phpcs)
+  (steve-set-line-length)
+  (steve-php-yasnippet-init))
+
 (add-hook 'php-mode-hook 'steve-php-mode-setup)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python . t)))
 
+(defun steve-yaml-init ()
+  (setq yaml-indent-offset 4))
+(add-hook 'yaml-mode-hook 'steve-yaml-init)
+
+(setq preferred-javascript-indent-level 4)
+
+(set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+
+;; Cycle between snake case, camel case, etc.
+(require-package 'string-inflection)
+(global-set-key (kbd "C-c C-c i") 'string-inflection-all-cycle)
+(global-set-key (kbd "C-c C-c C") 'string-inflection-camelcase)        ;; Force to CamelCase
+(global-set-key (kbd "C-c C-c L") 'string-inflection-lower-camelcase)  ;; Force to lowerCamelCase
+(global-set-key (kbd "C-c C-c J") 'string-inflection-java-style-cycle) ;; Cycle through Java styles
+
+(require-package 'multiple-cursors)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
 (require 'init-pymacs)
 (require 'init-geben)
 (require 'init-web-mode)
 (require 'init-gnu-global)
 (require 'init-editorconfig)
+(require 'init-handlebars)
+(require 'init-twig)
+(require 'init-org-confluence)
+(require 'htmlr)
+(require 'init-groovy)
+(require 'init-yasnippet)
 
 (provide 'init-local)
 ;;; init-local ends here
