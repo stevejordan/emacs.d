@@ -40,7 +40,6 @@
 
 (add-hook 'php-mode-hook 'steve-gnu-global-setup)
 (add-hook 'java-mode-hook 'steve-gnu-global-setup)
-
 (add-hook 'after-save-hook #'gtags-update-hook)
 
 (provide 'init-gnu-global)

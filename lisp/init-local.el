@@ -4,7 +4,8 @@
 ;;;   themes, bindings etc
 
 ;;; code:
-(setq custom-enabled-themes '(tango-dark))
+(load-theme 'tango-dark)
+
 (global-linum-mode)
 (menu-bar-mode -1)
 
@@ -45,8 +46,7 @@
     (when (equal major-mode 'python-mode)
       (setq steve-line-length 100))
     (when (equal major-mode 'php-mode)
-      (setq steve-line-length 120))
-    (set (make-local-variable 'whitespace-line-column) steve-line-length)))
+      (setq steve-line-length 120))))
 
 (defun steve-python-setup ()
   "Set python flychecker to be pylint."
@@ -106,6 +106,14 @@ hierarchy, starting from CURRENT-DIR"
   (steve-set-line-length)
   (steve-php-yasnippet-init))
 
+(defun steve-psr2-phpcs ()
+  "Set PHP codesniffer standard to PSR2."
+  ;; doesn't matter that this applies to all buffers
+  (setq flycheck-phpcs-standard "PSR2"))
+
+(defun steve-php-mode-setup ()
+  "Functions to run on php-mode-hook."
+  (steve-psr2-phpcs))
 (add-hook 'php-mode-hook 'steve-php-mode-setup)
 
 (org-babel-do-load-languages
