@@ -4,7 +4,7 @@
 ;;;   themes, bindings etc
 
 ;;; code:
-(load-theme 'tango-dark)
+(dark)
 
 (global-linum-mode)
 (menu-bar-mode -1)
@@ -113,6 +113,10 @@ hierarchy, starting from CURRENT-DIR"
 
 (defun steve-php-mode-setup ()
   "Functions to run on php-mode-hook."
+  (with-eval-after-load 'company
+    (sanityinc/local-push-company-backend 'company-gtags))
+  (setq-local php-refactor-patch-command "patch -p1 --no-backup-if-mismatch --ignore-whitespace")
+  (php-refactor-mode)
   (steve-psr2-phpcs))
 (add-hook 'php-mode-hook 'steve-php-mode-setup)
 
@@ -141,7 +145,7 @@ hierarchy, starting from CURRENT-DIR"
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
-(require 'init-pymacs)
+;;(require 'init-pymacs)
 (require 'init-geben)
 (require 'init-web-mode)
 (require 'init-gnu-global)
@@ -152,6 +156,12 @@ hierarchy, starting from CURRENT-DIR"
 (require 'htmlr)
 (require 'init-groovy)
 (require 'init-yasnippet)
+
+(require-package 'php-refactor-mode)
+(require-package 'scala-mode)
+
+;;(require 'ob-scala)
+;;(require 'flycheck-infer)
 
 (provide 'init-local)
 ;;; init-local ends here
