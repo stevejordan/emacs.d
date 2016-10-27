@@ -1,0 +1,13 @@
+#name : Public Function
+#key : pubf
+# --
+/**
+ * ${5:Description}
+ *
+ * @param $2 \$$3
+ * @return ${4:void}
+ */
+public function $1(${2:Type} \$${3:param})
+{
+    $0
+}

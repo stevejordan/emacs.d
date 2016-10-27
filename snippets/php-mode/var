@@ -1,0 +1,5 @@
+#name : annotated variable
+#key : var
+# --
+/** @var ${2:Type} */
+private $$1;

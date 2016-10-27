@@ -1,0 +1,10 @@
+#name : phpunit_test_method
+#key : test
+# --
+/**
+ * @return void
+ */
+public function test$1()
+{
+    $0
+}

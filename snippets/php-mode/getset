@@ -1,0 +1,25 @@
+#name : Getter/Setter
+#key : getset
+# --
+/** @var ${1:Type} */
+private \$${2:name};
+
+/**
+ * @param $1 \$$2
+ * @return self
+ */
+public function set${2:$(capitalize yas-text)}($1 \$$2)
+{
+    $this->$2 = \$$2;
+    return $this;
+}
+
+/**
+ * @return $1
+ */
+public function get${2:$(capitalize yas-text)}()
+{
+    return $this->$2;
+}
+
+$0

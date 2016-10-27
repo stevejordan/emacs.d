@@ -145,6 +145,10 @@ hierarchy, starting from CURRENT-DIR"
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+(when (eq system-type 'darwin)
+  (set-face-attribute 'default nil :family "Consolas")
+  (set-face-attribute 'default nil :height 150))
+
 ;;(require 'init-pymacs)
 (require 'init-geben)
 (require 'init-web-mode)
