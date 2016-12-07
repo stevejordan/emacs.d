@@ -149,6 +149,10 @@ hierarchy, starting from CURRENT-DIR"
   (set-face-attribute 'default nil :family "Consolas")
   (set-face-attribute 'default nil :height 150))
 
+;; make ivy matching work like ido
+(after-load 'init-ivy
+  (sanityinc/enable-ivy-flx-matching))
+
 ;;(require 'init-pymacs)
 (require 'init-geben)
 (require 'init-web-mode)
