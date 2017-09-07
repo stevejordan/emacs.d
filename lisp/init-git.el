@@ -3,7 +3,6 @@
 (require-package 'git-blamed)
 (require-package 'gitignore-mode)
 (require-package 'gitconfig-mode)
-(require-package 'git-messenger) ;; Though see also vc-annotate's "n" & "p" bindings
 (maybe-require-package 'git-timemachine)
 
 
@@ -35,7 +34,8 @@
 
 
 ;; Convenient binding for vc-git-grep
-(global-set-key (kbd "C-x v f") 'vc-git-grep)
+(after-load 'vc
+  (define-key vc-prefix-map (kbd "f") 'vc-git-grep))
 
 
 
@@ -63,6 +63,8 @@
              "^  \\([a-z\\-]+\\) +"
              (shell-command-to-string "git svn help") 1))))
 
+(autoload 'vc-git-root "vc-git")
+
 (defun git-svn (dir command)
   "Run a git svn subcommand in DIR."
   (interactive (list (read-directory-name "Directory: ")
@@ -72,8 +74,11 @@
     (compile (concat "git svn " command))))
 
 
-(require-package 'git-messenger)
-(global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
+(maybe-require-package 'git-messenger)
+;; Though see also vc-annotate's "n" & "p" bindings
+(after-load 'vc
+  (setq git-messenger:show-detail t)
+  (define-key vc-prefix-map (kbd "p") #'git-messenger:popup-message))
 
 
 (provide 'init-git)
