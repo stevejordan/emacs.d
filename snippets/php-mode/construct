@@ -1,0 +1,14 @@
+#name : __construct
+#key : construct
+# --
+/** @var ${1:Type} */
+private \$${2:name};
+
+/**
+ * @param $1 \$$2
+ */
+public function __construct($1 \$$2)
+{
+    $this->$2 = \$$2;
+    $0
+}

@@ -164,6 +164,7 @@ hierarchy, starting from CURRENT-DIR"
 (require 'htmlr)
 (require 'init-groovy)
 (require 'init-yasnippet)
+(require 'init-unicode-fonts)
 
 (require-package 'php-refactor-mode)
 (require-package 'scala-mode)
