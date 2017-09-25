@@ -160,7 +160,7 @@ hierarchy, starting from CURRENT-DIR"
 (require 'init-editorconfig)
 (require 'init-handlebars)
 (require 'init-twig)
-(require 'init-org-confluence)
+;;(require 'init-org-confluence)
 (require 'htmlr)
 (require 'init-groovy)
 (require 'init-yasnippet)
