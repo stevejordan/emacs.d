@@ -4,7 +4,7 @@
 ;;;   themes, bindings etc
 
 ;;; code:
-(dark)
+(color-theme-sanityinc-solarized-dark)
 
 (global-linum-mode)
 (menu-bar-mode -1)

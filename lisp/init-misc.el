@@ -7,7 +7,7 @@
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 (setq goto-address-mail-face 'link)
 
-(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
+;;(add-hook 'after-save-hook 'executable-make-buffer-file-executable-if-script-p)
 (add-hook 'after-save-hook 'sanityinc/set-mode-for-new-scripts)
 
 (defun sanityinc/set-mode-for-new-scripts ()
