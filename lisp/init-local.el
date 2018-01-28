@@ -129,6 +129,8 @@ hierarchy, starting from CURRENT-DIR"
 (add-hook 'yaml-mode-hook 'steve-yaml-init)
 
 (setq preferred-javascript-indent-level 4)
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
+(add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
 
 (set-language-environment "UTF-8")
 (set-default-coding-systems 'utf-8)
