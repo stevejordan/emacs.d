@@ -108,7 +108,7 @@
 (require 'init-yaml)
 (require 'init-docker)
 (require 'init-terraform)
-(require 'init-nix)
+;;(require 'init-nix)
 (maybe-require-package 'nginx-mode)
 
 (require 'init-paredit)
@@ -137,7 +137,8 @@
 (require-package 'dsvn)
 (when *is-a-mac*
   (require-package 'osx-location))
-(maybe-require-package 'regex-tool)
+(unless (eq system-type 'windows-nt)
+  (maybe-require-package 'daemons))
 (maybe-require-package 'dotenv-mode)
 
 (when (maybe-require-package 'uptimes)
