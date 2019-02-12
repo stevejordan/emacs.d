@@ -114,17 +114,18 @@ hierarchy, starting from CURRENT-DIR"
 (defun steve-php-mode-setup ()
   "Functions to run on php-mode-hook."
   (with-eval-after-load 'company
-    (sanityinc/local-push-company-backend 'company-gtags))
+    (push 'company-gtags company-backends))
   (setq-local php-refactor-patch-command "patch -p1 --no-backup-if-mismatch --ignore-whitespace")
   (php-refactor-mode)
   (steve-psr2-phpcs))
 (add-hook 'php-mode-hook 'steve-php-mode-setup)
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t)))
+;; (org-babel-do-load-languages
+;;  'org-babel-load-languages
+;;  '((python . t)))
 
 (defun steve-yaml-init ()
+  "Adjust yaml-mode offset."
   (setq yaml-indent-offset 4))
 (add-hook 'yaml-mode-hook 'steve-yaml-init)
 
@@ -162,7 +163,7 @@ hierarchy, starting from CURRENT-DIR"
 (require 'init-editorconfig)
 (require 'init-handlebars)
 (require 'init-twig)
-;;(require 'init-org-confluence)
+(require 'init-org-confluence)
 (require 'htmlr)
 (require 'init-groovy)
 (require 'init-yasnippet)
@@ -173,6 +174,9 @@ hierarchy, starting from CURRENT-DIR"
 
 ;;(require 'ob-scala)
 ;;(require 'flycheck-infer)
+
+(setq exec-path (append exec-path '("/usr/local/bin/")))
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 
 (provide 'init-local)
 ;;; init-local ends here
