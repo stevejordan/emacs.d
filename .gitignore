@@ -48,6 +48,8 @@ site-lisp/package/
 /rake.cache
 /plantuml.jar
 /magithub
+.cache/
+/forge-database.sqlite
 
 # steve additions
 /geben
