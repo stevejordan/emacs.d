@@ -50,6 +50,7 @@ site-lisp/package/
 /magithub
 .cache/
 /forge-database.sqlite
+/transient
 
 # steve additions
 /geben
