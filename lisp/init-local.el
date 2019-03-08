@@ -38,7 +38,7 @@
 
 (require-package 'visual-regexp)
 (require-package 'ack)
-(require-package 'realgud)
+;; (require-package 'realgud)
 
 (defun steve-set-line-length ()
   "Set line-length marker per major mode."
@@ -168,15 +168,17 @@ hierarchy, starting from CURRENT-DIR"
 (require 'init-groovy)
 (require 'init-yasnippet)
 (require 'init-unicode-fonts)
+(require 'init-java)
 
 (require-package 'php-refactor-mode)
 (require-package 'scala-mode)
+(require-package 'ag)
 
 ;;(require 'ob-scala)
 ;;(require 'flycheck-infer)
 
-(setq exec-path (append exec-path '("/usr/local/bin/")))
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+;;(setq exec-path (append exec-path '("/usr/local/bin/")))
+;;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
 
 (provide 'init-local)
 ;;; init-local ends here
