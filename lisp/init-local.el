@@ -6,7 +6,6 @@
 ;;; code:
 (color-theme-sanityinc-solarized-dark)
 
-(global-linum-mode)
 (menu-bar-mode -1)
 
 ;; set C-TAB to equal TAB
@@ -124,11 +123,6 @@ hierarchy, starting from CURRENT-DIR"
 ;;  'org-babel-load-languages
 ;;  '((python . t)))
 
-(defun steve-yaml-init ()
-  "Adjust yaml-mode offset."
-  (setq yaml-indent-offset 4))
-(add-hook 'yaml-mode-hook 'steve-yaml-init)
-
 (setq preferred-javascript-indent-level 4)
 (add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-jsx-mode))
 (add-to-list 'interpreter-mode-alist '("node" . js2-jsx-mode))
@@ -177,8 +171,7 @@ hierarchy, starting from CURRENT-DIR"
 ;;(require 'ob-scala)
 ;;(require 'flycheck-infer)
 
-;;(setq exec-path (append exec-path '("/usr/local/bin/")))
-;;(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+(require-package 'company-box)
 
 (provide 'init-local)
 ;;; init-local ends here
