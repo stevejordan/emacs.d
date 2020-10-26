@@ -62,8 +62,7 @@
     (file-name-directory (directory-file-name dir))))
 
 (defun find-file-in-heirarchy (current-dir fname)
-  "Search for a file named FNAME upwards through the directory
-hierarchy, starting from CURRENT-DIR"
+  "Search for a file named FNAME upwards through the directory hierarchy, starting from CURRENT-DIR."
   (let ((file (concat current-dir fname))
         (parent (parent-directory (expand-file-name current-dir))))
     (if (file-exists-p file)
@@ -81,12 +80,6 @@ hierarchy, starting from CURRENT-DIR"
     (when composer-json-location
       (concat (file-name-directory composer-json-location) "vendor/autoload.php"))))
 
-(defun steve-phpcs ()
-  "Set PHP codesniffer standard to PSR2."
-  ;; doesn't matter that this applies to all buffers
-  (setq flycheck-phpcs-standard nil)
-  (setq flycheck-php-phpcs-executable "~/bin/phpcs"))
-
 (defun steve-php-yasnippet-init ()
   "Initialise yasnippet in php buffers."
   (yas-minor-mode)
@@ -99,12 +92,6 @@ hierarchy, starting from CURRENT-DIR"
   (define-key yas-minor-mode-map (kbd "C-c TAB") 'yas-expand)
   (define-key yas-minor-mode-map (kbd "C-c <tab>") 'yas-expand))
 
-(defun steve-php-mode-setup ()
-  "Functions to run on php-mode-hook."
-  (steve-phpcs)
-  (steve-set-line-length)
-  (steve-php-yasnippet-init))
-
 (defun steve-psr2-phpcs ()
   "Set PHP codesniffer standard to PSR2."
   ;; doesn't matter that this applies to all buffers
@@ -112,11 +99,10 @@ hierarchy, starting from CURRENT-DIR"
 
 (defun steve-php-mode-setup ()
   "Functions to run on php-mode-hook."
-  (with-eval-after-load 'company
-    (push 'company-gtags company-backends))
   (setq-local php-refactor-patch-command "patch -p1 --no-backup-if-mismatch --ignore-whitespace")
   (php-refactor-mode)
-  (steve-psr2-phpcs))
+  (steve-psr2-phpcs)
+  (steve-php-yasnippet-init))
 (add-hook 'php-mode-hook 'steve-php-mode-setup)
 
 ;; (org-babel-do-load-languages
@@ -148,7 +134,9 @@ hierarchy, starting from CURRENT-DIR"
 
 ;; make ivy matching work like ido
 (after-load 'init-ivy
-  (sanityinc/enable-ivy-flx-matching))
+  (require-package 'flx)
+  (setq-default ivy-re-builders-alist
+                '((t . ivy--regex-fuzzy))))
 
 ;;(require 'init-pymacs)
 (require 'init-geben)
@@ -162,7 +150,7 @@ hierarchy, starting from CURRENT-DIR"
 (require 'init-groovy)
 (require 'init-yasnippet)
 (require 'init-unicode-fonts)
-(require 'init-java)
+; (require 'init-java) - WHERE IS FILE?
 
 (require-package 'php-refactor-mode)
 (require-package 'scala-mode)
@@ -172,6 +160,14 @@ hierarchy, starting from CURRENT-DIR"
 ;;(require 'flycheck-infer)
 
 (require-package 'company-box)
+
+(require 'init-lsp)
+
+;; this overwrites company backends to always be capf
+;; MAY NOT BE WHAT WE WANT FOR ALL MODES????
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (setq-local company-backends '(company-capf))))
 
 (provide 'init-local)
 ;;; init-local ends here
