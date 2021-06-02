@@ -19,9 +19,6 @@
             (when server-buffer-clients
               (local-set-key (kbd "C-x k") 'server-edit))))
 
-;; mail-mode for mutt messages
-(add-to-list 'auto-mode-alist '("/mutt" . mail-mode))
-
 (setq php-refactor-command "refactor")
 
 (setq whitespace-style
@@ -54,8 +51,6 @@
   (steve-set-line-length)
   )
 (add-hook 'python-mode-hook 'steve-python-setup)
-
-(require-package 'php-auto-yasnippets)
 
 (defun parent-directory (dir)
   (unless (equal "/" dir)
@@ -132,11 +127,8 @@
   (set-face-attribute 'default nil :family "Consolas")
   (set-face-attribute 'default nil :height 150))
 
-;; make ivy matching work like ido
-(after-load 'init-ivy
-  (require-package 'flx)
-  (setq-default ivy-re-builders-alist
-                '((t . ivy--regex-fuzzy))))
+(with-eval-after-load 'vertico
+  (setq completion-styles (cons 'flex completion-styles)))
 
 ;;(require 'init-pymacs)
 (require 'init-geben)
@@ -156,18 +148,17 @@
 (require-package 'scala-mode)
 (require-package 'ag)
 
-;;(require 'ob-scala)
 ;;(require 'flycheck-infer)
 
 (require-package 'company-box)
 
-(require 'init-lsp)
+;;(require 'init-lsp)
 
 ;; this overwrites company backends to always be capf
 ;; MAY NOT BE WHAT WE WANT FOR ALL MODES????
-(add-hook 'lsp-managed-mode-hook
-          (lambda ()
-            (setq-local company-backends '(company-capf))))
+;; (add-hook 'lsp-managed-mode-hook
+;;           (lambda ()
+;;             (setq-local company-backends '(company-capf))))
 
 (provide 'init-local)
 ;;; init-local ends here
