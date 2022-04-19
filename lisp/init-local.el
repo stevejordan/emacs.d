@@ -15,7 +15,7 @@
   (add-hook 'prog-mode 'fira-code-mode))
 
 (with-eval-after-load 'vertico
-  (setq completion-styles (cons 'flex completion-styles)))
+  (add-to-list 'completion-styles 'flex))
 
 (remove-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 
@@ -40,7 +40,14 @@
 (when (maybe-require-package 'neotree)
   (setq projectile-switch-project-action 'neotree-projectile-action))
 
-                                        ; (require 'init-lsp)
+(require 'init-lsp)
+
+(setq org-agenda-files '("~/todo.org"))
+
+;; (when (maybe-require-package 'ag)
+;;   (add-to-list 'ag-arguments "-U"))
+
+;;(require 'init-geben)
 
 (provide 'init-local)
 ;;; init-local ends here
