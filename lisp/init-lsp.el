@@ -4,6 +4,7 @@
 (when (maybe-require-package 'lsp-mode)
   (message "lsp loaded")
   (setq lsp-enable-file-watchers nil)
+  (setq lsp-intelephense-php-version "7.4.30")
   (add-hook 'php-mode-hook #'lsp-deferred))
 
 (when (maybe-require-package 'dap-mode)

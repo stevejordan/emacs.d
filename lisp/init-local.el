@@ -40,6 +40,8 @@
 (when (maybe-require-package 'neotree)
   (setq projectile-switch-project-action 'neotree-projectile-action))
 
+(setq switch-to-buffer-obey-display-actions t)
+
 (require 'init-lsp)
 
 (setq org-agenda-files '("~/todo.org"))
