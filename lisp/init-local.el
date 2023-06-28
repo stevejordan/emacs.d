@@ -49,7 +49,8 @@
 ;; (when (maybe-require-package 'ag)
 ;;   (add-to-list 'ag-arguments "-U"))
 
-;;(require 'init-geben)
+;; remove on update to 29
+(add-to-list 'image-types 'svg)
 
 (provide 'init-local)
 ;;; init-local ends here

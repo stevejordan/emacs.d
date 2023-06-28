@@ -10,7 +10,8 @@
 (when (maybe-require-package 'dap-mode)
   (setq dap-auto-configure-features '(sessions locals breakpoints expressions controls tooltip))
   (dap-mode 1)
-  (require 'dap-php))
+  (when (require 'dap-php)
+    (dap-php-setup)))
 
 (provide 'init-lsp)
 ;;; init-lsp.el ends here
