@@ -42,7 +42,7 @@
 
 (setq switch-to-buffer-obey-display-actions t)
 
-(require 'init-lsp)
+;;(require 'init-lsp)
 
 (setq org-agenda-files '("~/todo.org"))
 
@@ -51,6 +51,8 @@
 
 ;; remove on update to 29
 (add-to-list 'image-types 'svg)
+
+(setq-default js-indent-level 4)
 
 (provide 'init-local)
 ;;; init-local ends here
